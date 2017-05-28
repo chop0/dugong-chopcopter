@@ -1,2 +1,2 @@
 all:	
-	g++ -Wall -pthread -o drone src/*.cpp -lpigpio -lrt
+	g++ -Wall -pthread -std=c++14 -o bin/drone src/* -lpigpio -lrt
