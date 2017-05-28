@@ -8,7 +8,7 @@
 
 CC ?= gcc
 CXX ?= g++
-CXXFLAGS += -I ../src/ -I ./ -DLINUX
+CXXFLAGS += -std=c++14 -I ../src/ -I ./ -DLINUX
 LDFLAGS += -lrt -lpthread
 
 ifeq ($(build),debug)
@@ -56,7 +56,7 @@ SOURCES=main.cpp \
 	../src/utility/BlynkTimer.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=blynk
+EXECUTABLE=~/drone/bin/blynk
 
 all: $(SOURCES) $(EXECUTABLE)
 

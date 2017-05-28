@@ -20,12 +20,11 @@ std::list<int> motors = {MOTOR_1, MOTOR_2, MOTOR_3, MOTOR_4};
 
 
 void setup() {
+	gpioInitialise();
 	for(const auto& motor : motors) {
 		gpioSetMode(motor, PI_OUTPUT);
 		gpioWrite(motor, 0);
 	}
-
-	gpioInitialise();
 }
 
 void loop() {
@@ -37,7 +36,6 @@ std::getline(std::cin, line); // Blocks until something interesting comes into s
 
 //switch(getch()) { // Using newer, less obsolete method which doesn't require system calls now
 if(line[0] > -1) {
-
 
 switch(line[0]) {
 	case '1':
@@ -56,7 +54,10 @@ switch(line[0]) {
                 std::getline(std::cin, line);
 		drone::sendPWM ( MOTOR_4, std::stoi(line) );
 		break;
-}}
+	//case "right":
+		
+}
+}
 }
 
 
