@@ -1,4 +1,4 @@
-How to install
+How to installdugon-chopdrone
 ===============
 1. Download and compile:
 ```git clone --recursive https://github.com/chop0/dugong-chopcopter/
