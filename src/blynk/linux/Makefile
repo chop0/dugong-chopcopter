@@ -56,7 +56,7 @@ SOURCES=main.cpp \
 	../src/utility/BlynkTimer.cpp
 
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=~/drone/bin/blynk
+EXECUTABLE=../../../bin/blynk
 
 all: $(SOURCES) $(EXECUTABLE)
 
