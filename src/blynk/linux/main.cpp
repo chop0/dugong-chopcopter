@@ -30,10 +30,15 @@ BlynkSocket Blynk(_blynkTransport);
 #include <BlynkWidgets.h>
 #include <iostream>
 
-BLYNK_WRITE(V5) // All motors on for V5
+
+
+
+BLYNK_WRITE(V5) // All motors on V5
 {
-  for(const auto& motor : motors)
-  	std::cout << motor << std::endl << param[0].asStr() << std::endl;
+
+for (const auto& motor : motors)
+	std::cout << motor << std::endl << param[0].asStr() << std::endl;
+
 }
 
 

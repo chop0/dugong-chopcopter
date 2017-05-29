@@ -23,7 +23,7 @@ void setup() {
 	gpioInitialise();
 	for(const auto& motor : motors) {
 		gpioSetMode(motor, PI_OUTPUT);
-		gpioWrite(motor, 0);
+		drone::sendPWM(motor, 1100);
 	}
 }
 
@@ -54,8 +54,13 @@ switch(line[0]) {
                 std::getline(std::cin, line);
 		drone::sendPWM ( MOTOR_4, std::stoi(line) );
 		break;
-	//case "right":
-		
+	default:
+		if(line == "leftright") {
+		std::getline(std::cin, line);
+		drone::appendPWM(MOTOR_2, std::stoi(line));
+		drone::appendPWM(MOTOR_3, std::stoi(line));
+		}
+		break;
 }
 }
 }
