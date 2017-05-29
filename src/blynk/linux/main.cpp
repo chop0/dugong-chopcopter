@@ -35,10 +35,22 @@ BlynkSocket Blynk(_blynkTransport);
 
 BLYNK_WRITE(V5) // All motors on V5
 {
-
-for (const auto& motor : motors)
-	std::cout << motor << std::endl << param[0].asStr() << std::endl;
-
+for (const auto& motor : motors) {
+	switch(motor) {
+	case MOTOR_1:
+		std::cout << MOTOR_1 << std::endl << param[0].asStr() + 130 << std::endl; // Motor 1 trigger (1250) is 130 more than base for slider (1120)
+		break;
+	case MOTOR_2:
+		std::cout << MOTOR_2 << std::endl << param[0].asStr() + 0 << std::endl; // Motor 2 trigger (1120) is 0 more than base trigger
+		break;
+	case MOTOR_3:
+		std::cout << MOTOR_2 << std::endl << param[0].asStr() + 5 << std::endl; // Motor 3 trigger (1125) is 5 more than base trigger
+		break;
+	case MOTOR_4:
+		std::cout << MOTOR_2 << std::endl << param[0].asStr() + 5 << std::endl; // Motor 4 trigger (1125) is 5 more than base trigger
+		break;
+	}
+}
 }
 
 
