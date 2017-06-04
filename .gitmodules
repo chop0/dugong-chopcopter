@@ -1,3 +1,0 @@
-[submodule "src/blynk"]
-	path = src/blynk
-	url = https://github.com/chop0/blynk
