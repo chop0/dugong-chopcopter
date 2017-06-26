@@ -6,3 +6,6 @@
 [submodule "src/RTIMULib"]
 	path = src/RTIMULib
 	url = https://github.com/chop0/RTIMULib
+[submodule "src/pigpio"]
+	path = src/pigpio
+	url = https://github.com/joan2937/pigpio.git
