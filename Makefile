@@ -1,6 +1,7 @@
 # Declaration of variables
-CC = arm-linux-gnueabihf-g++-5
-CC_FLAGS = -I src/pigpio -I src/RTIMULib/RTIMULib -std=c++14
+COMPILER_PREFIX = 
+CXX = g++
+CXX_FLAGS = -I src/pigpio -I src/RTIMULib/RTIMULib -std=c++14
  
 # File names
 EXEC = run
@@ -9,11 +10,11 @@ OBJECTS = $(SOURCES:.cpp=.o)
  
 # Main target
 $(EXEC): $(OBJECTS)
-	$(CC) $(CC_FLAGS) $(OBJECTS) -o $(EXEC)
+	$(CXX) $(CXX_FLAGS) $(OBJECTS) -o $(EXEC)
  
 # To obtain object files
 %.o: %.cpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+	$(CXX) -c $(CXX_FLAGS) $< -o $@
  
 # To remove generated files
 clean:
