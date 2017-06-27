@@ -1,5 +1,3 @@
-/* Please not we do not need the RTIMU includes because the imu.h already has them */
-
 #include "RTIMULib.h"
 #include "RTIMUMagCal.h"
 #include "RTIMUAccelCal.h"
@@ -16,22 +14,22 @@ static RTIMUAccelCal *accelCal;
 static bool magMinMaxDone;
 static bool accelEnables[3];
 static int accelCurrentAxis;
-bool mustExit;
+static bool mustExit;
 
-void doMagMinMaxCal();
-void doMagEllipsoidCal();
-void processEllipsoid();
-void doAccelCal();
-void newIMU();
-bool pollIMU();
-char getUserChar();
-void displayMenu();
-void displayMagMinMax();
-void displayMagEllipsoid();
-void displayAccelMinMax();
+static void doMagMinMaxCal();
+static void doMagEllipsoidCal();
+static void processEllipsoid();
+static void doAccelCal();
+static void newIMU();
+static bool pollIMU();
+static char getUserChar();
+static void displayMenu();
+static void displayMagMinMax();
+static void displayMagEllipsoid();
+static void displayAccelMinMax();
 
 
-void init() {
+static void init() {
 	char *settingsFile;
 
 	settingsFile = (char *)"RTIMULib";;
@@ -44,7 +42,7 @@ void init() {
         newIMU();
 }
 
-void init(char *settingsFile) {
+static void init(char *settingsFile) {
         printf("imuInterface() - using %s.ini\n", settingsFile);
 
 	settings = new RTIMUSettings(settingsFile);

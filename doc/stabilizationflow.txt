@@ -1,0 +1,59 @@
+begin main blynk loop
+
+true
+
+False
+
+True
+
+a value changed and we are doing a manual trim
+
+False
+
+True
+
+we are using the IMU
+
+False
+
+Motor number
+
+True
+
+motor 1
+
+absolute value of roll
+in degrees is greater than
+the absolute value of 8 divided by the rightward velocity in
+metres per second
+
+set motor 1 to new value
+
+motor 2
+
+set motor 2 to new value
+
+motor 3
+
+motor 4
+
+set motor 3 to new value
+
+set motor 4 to new value
+
+True
+
+False
+
+decrease motors 1 and 4 by (roll / correction point 9)% per second
+
+absolute value of pitch
+in degrees is greater than
+the absolute value of 8 divided by the rightward velocity in
+metres per second
+
+True
+
+decrease motors 1 and 4 by (pitch / correction point 9)% per second
+
+
