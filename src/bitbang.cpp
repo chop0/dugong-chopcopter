@@ -12,5 +12,5 @@ void drone::sendPWM ( int pin, int width ) { // Function assumes that expected f
 
 
 float drone::getPWM(int pin) {
-	gpioGetServoPulsewidth(pin);
+	return gpioGetServoPulsewidth(pin);
 }
