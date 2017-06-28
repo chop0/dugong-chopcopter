@@ -8,4 +8,4 @@
 	url = https://github.com/chop0/RTIMULib
 [submodule "src/pigpio"]
 	path = src/pigpio
-	url = https://github.com/joan2937/pigpio.git
+	url = https://github.com/chop0/pigpio.git
