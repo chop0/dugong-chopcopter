@@ -1,7 +1,7 @@
  * If the absolute value of pitch in degrees is greater than the absolute value of 8 divided by the rightward velocity in metres per second, then decrease motors 1 and 4 by (pitch / correction point * 9)% $
 
-        - 0.2m/s = 40 degrees correction point, so at 41 degrees, we decrease motors 1 and 4 by 9.225% per second
-        - 0.25m/s = 35 degrees correction point, so at 36 degrees, we decrease motors 1 and 4 by ~9.257% per second
+        - 0.2m/s = 40 degrees correction point, so at 41 degrees, we decrease motors 1 and 3 by 9.225% per second
+        - 0.25m/s = 35 degrees correction point, so at 36 degrees, we decrease motors 1 and 3 by ~9.257% per second
         - 0.3m/s = 30 degrees correction point
         - 0.35m/s = 25 degrees correction point
         * AND SO ON
