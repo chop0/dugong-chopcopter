@@ -77,6 +77,10 @@ float getRightwardVelocity(RTIMU *imu) {
 	return 0;
 }
 
+float getForwardVelocity  (RTIMU *imu) {
+	return 0;
+}
+
 void setup() {
 	imu->IMUInit();
 	imu->setSlerpPower(0.02);
@@ -142,6 +146,11 @@ float rollCorrectionAngle(RTIMU *imu) {
 	return std::abs(8/getRightwardVelocity(imu));
 }
 
+float pitchCorrectionAngle(RTIMU *imu) {
+        return std::abs(8/getForwardVelocity(imu));
+}
+
+
 float rollCorrectionWidth(RTIMU *imu) {
 	int maxThrottle = 	1750;
 	int minThrottle = 	1100;
@@ -152,15 +161,35 @@ float rollCorrectionWidth(RTIMU *imu) {
 	return (percentReductionPerSecond * onepercent);
 }
 
+float pitchCorrectionWidth(RTIMU *imu) {
+        int maxThrottle =       1750;
+        int minThrottle =       1100;
+        int range       =       maxThrottle - minThrottle;
+        float onepercent  =     range / 100;
+
+        float percentReductionPerSecond = getPitch(imu) / pitchCorrectionAngle(imu);
+        return (percentReductionPerSecond * onepercent);
+}
+
+
 void loopStable(RTIMU *imu) {
 	/* Stabalize roll */
 	if(std::abs(getRoll(imu)) >= std::abs(8/getRightwardVelocity(imu))) {
 		while(std::abs(getRoll(imu)) >= rollCorrectionAngle(imu)) {
 			drone::sendPWM ( MOTOR_1, drone::getPWM(MOTOR_1) - rollCorrectionWidth(imu));
-			drone::sendPWM ( MOTOR_3, drone::getPWM(MOTOR_3) - rollCorrectionWidth(imu));
+			drone::sendPWM ( MOTOR_4, drone::getPWM(MOTOR_4) - rollCorrectionWidth(imu));
 			sleep_for(seconds(1));
 		}
 	}
+
+	if(std::abs(getPitch(imu)) >= std::abs(8/getForwardVelocity(imu))) {
+		while(std::abs(getPitch(imu)) >= pitchCorrectionAngle(imu)) {
+			drone::sendPWM ( MOTOR_1, drone::getPWM( MOTOR_1 ) - pitchCorrectionWidth(imu));
+			drone::sendPWM ( MOTOR_3, drone::getPWM( MOTOR_3 ) - pitchCorrectionWidth(imu));
+			sleep_for(seconds(1));
+		}
+	}
+
 }
 
 
@@ -172,13 +201,6 @@ int main ( ) {
 	while (true) {
 		loopStable(imu);
 	}
-
-	/*
-	   gpioInitialise();
-	   gpioSetMode(23, PI_OUTPUT);
-	   drone::sendPWM ( 23, 1500);
-	   while (true); // Keep running until terminated
-	 */
 }
 
 
