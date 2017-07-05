@@ -78,19 +78,23 @@ float getRightwardVelocity(RTIMU *imu) {
 }
 
 void setup() {
-	imu->IMUInit();
-	imu->setSlerpPower(0.02);
-	imu->setGyroEnable(true);
-	imu->setAccelEnable(true);
 
 	RTIMUSettings *settings = new RTIMUSettings("RTIMULib");
 
 	RTIMU *imu = RTIMU::createIMU(settings);
 
+
+
 	if ((imu == NULL) || (imu->IMUType() == RTIMU_TYPE_NULL)) {
 		printf("No IMU found\n");
 		exit(1);
 	}
+
+
+        imu->IMUInit();
+        imu->setSlerpPower(0.02);
+        imu->setGyroEnable(true);
+        imu->setAccelEnable(true);
 
 	gpioInitialise();
 	for(const auto& motor : motors) {
@@ -169,16 +173,17 @@ void loopStable(RTIMU *imu) {
 
 int main ( ) {
 	setup();
+	testIMU();
 	while (true) {
-		loopStable(imu);
+	//	loopManual();
 	}
 
-	/*
+/*
 	   gpioInitialise();
-	   gpioSetMode(23, PI_OUTPUT);
-	   drone::sendPWM ( 23, 1500);
+	   gpioSetMode(18, PI_OUTPUT);
+	   drone::sendPWM ( 18, 1500);
 	   while (true); // Keep running until terminated
-	 */
+*/
 }
 
 

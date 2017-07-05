@@ -1,11 +1,11 @@
 #Declaration of variables
 COMPILER_PREFIX = arm-linux-gnueabihf-
 CXX = $(COMPILER_PREFIX)g++
-CXX_FLAGS = -lpthread -Wall -lrt -I src/pigpio -I src/RTIMULib/RTIMULib -std=c++14
+CXX_FLAGS = -lpthread -Wall -g -lrt -I src/pigpio -I src/RTIMULib/RTIMULib -std=c++14
  
 # File names
 EXEC = bin/driver
-SOURCES = $(wildcard src/*.cpp) src/RTIMULib/RTIMULib/build/libRTIMULib.so src/pigpio/libpigpio.so # Using shared objects as sources so we don't have to worry about g++ linker flags
+SOURCES = $(wildcard src/*.cpp) bin/libRTIMULib.so.7 bin/libpigpio.so # Using shared objects as sources so we don't have to worry about g++ linker flags
 OBJECTS = $(SOURCES:.cpp=.o)
  
 # Main target
@@ -17,11 +17,13 @@ $(EXEC): $(OBJECTS)
 	mkdir -p bin
 	$(CXX) -c $(CXX_FLAGS) $< -o $@
 
-src/RTIMULib/RTIMULib/build/libRTIMULib.so:
+bin/libRTIMULib.so.7:
 	        cd src/RTIMULib/RTIMULib;       mkdir -p build; cd build; rm -rf *;       cmake ..;	make clean;	make;
+		cp src/RTIMULib/RTIMULib/build/libRTIMULib.so.7.2.1 bin/libRTIMULib.so.7
 
-src/pigpio/libpigpio.so:
+bin/libpigpio.so:
 	make -C src/pigpio
+	cp src/pigpio/libpigpio.so bin/libpigpio.so
 # To remove generated files
 clean:
 	sudo rm -f $(EXEC) $(OBJECTS)
