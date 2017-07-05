@@ -206,7 +206,6 @@ int main ( ) {
 	while (true) {
 	//	loopManual();
 	}
-<<<<<<< HEAD
 
 /*
 	   gpioInitialise();
@@ -214,8 +213,6 @@ int main ( ) {
 	   drone::sendPWM ( 18, 1500);
 	   while (true); // Keep running until terminated
 */
-=======
->>>>>>> 6227b4abf70d68a7d6595683982ad5b7065c0108
 }
 
 
