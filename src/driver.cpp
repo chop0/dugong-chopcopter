@@ -27,59 +27,35 @@ std::list<int> motors = {MOTOR_1, MOTOR_2, MOTOR_3, MOTOR_4};
 #define SSTR( x ) static_cast< std::ostringstream & >( \
 		( std::ostringstream() << std::dec << x ) ).str()
 
-void testIMU() {
-	int sampleCount = 0;
-	int sampleRate = 0;
-	uint64_t rateTimer;
-	uint64_t displayTimer;
-	uint64_t now;
-
-	while (1) {
-		//  poll at the rate recommended by the IMU
-
-		usleep(imu->IMUGetPollInterval() * 1000);
-
-		while (imu->IMURead()) {
-			RTIMU_DATA imuData = imu->getIMUData();
-			sampleCount++;
-
-			now = RTMath::currentUSecsSinceEpoch();
-
-			//  display 10 times per second
-
-			if ((now - displayTimer) > 100000) {
-				printf("Sample rate %d: %s\r", sampleRate, RTMath::displayDegrees("", imuData.fusionPose));
-				fflush(stdout);
-				displayTimer = now;
-			}
-
-			//  update rate every second
-
-			if ((now - rateTimer) > 1000000) {
-				sampleRate = sampleCount;
-				sampleCount = 0;
-				rateTimer = now;
-			}
-		}
-	}
-}
 
 float getRoll(RTIMU *imu) {
-	return 0;
+	RTIMU_DATA imuData = imu->getIMUData();
+
+	return imuData.fusionPose.x();
 }
 
 float getPitch(RTIMU *imu) {
-	return 0;
+	RTIMU_DATA imuData = imu->getIMUData();
+
+	return imuData.fusionPose.z();
 }
 
 
 float getRightwardVelocity(RTIMU *imu) {
-	return 0;
+	RTIMU_DATA imuData = imu->getIMUData();
+
+	return imuData.accel.x();
 }
 
 float getForwardVelocity  (RTIMU *imu) {
-	return 0;
+
+	RTIMU_DATA imuData = imu->getIMUData();
+
+	return imuData.accel.z();
+	
+return 0;
 }
+
 
 void setup() {
 
@@ -95,10 +71,10 @@ void setup() {
 	}
 
 
-        imu->IMUInit();
-        imu->setSlerpPower(0.02);
-        imu->setGyroEnable(true);
-        imu->setAccelEnable(true);
+	imu->IMUInit();
+	imu->setSlerpPower(0.02);
+	imu->setGyroEnable(true);
+	imu->setAccelEnable(true);
 
 	gpioInitialise();
 	for(const auto& motor : motors) {
@@ -146,12 +122,14 @@ void loopManual() {
 }
 
 
+
+
 float rollCorrectionAngle(RTIMU *imu) {
 	return std::abs(8/getRightwardVelocity(imu));
 }
 
 float pitchCorrectionAngle(RTIMU *imu) {
-        return std::abs(8/getForwardVelocity(imu));
+	return std::abs(8/getForwardVelocity(imu));
 }
 
 
@@ -166,13 +144,13 @@ float rollCorrectionWidth(RTIMU *imu) {
 }
 
 float pitchCorrectionWidth(RTIMU *imu) {
-        int maxThrottle =       1750;
-        int minThrottle =       1100;
-        int range       =       maxThrottle - minThrottle;
-        float onepercent  =     range / 100;
+	int maxThrottle =       1750;
+	int minThrottle =       1100;
+	int range       =       maxThrottle - minThrottle;
+	float onepercent  =     range / 100;
 
-        float percentReductionPerSecond = getPitch(imu) / pitchCorrectionAngle(imu);
-        return (percentReductionPerSecond * onepercent);
+	float percentReductionPerSecond = getPitch(imu) / pitchCorrectionAngle(imu);
+	return (percentReductionPerSecond * onepercent);
 }
 
 
@@ -193,6 +171,8 @@ void loopStable(RTIMU *imu) {
 			sleep_for(seconds(1));
 		}
 	}
+	usleep(imu->IMUGetPollInterval() * 1000);
+
 
 }
 
@@ -204,15 +184,16 @@ int main ( ) {
 	setup();
 	testIMU();
 	while (true) {
-	//	loopManual();
+		//	loopManual();
 	}
 
-/*
+	/*
 	   gpioInitialise();
 	   gpioSetMode(18, PI_OUTPUT);
 	   drone::sendPWM ( 18, 1500);
 	   while (true); // Keep running until terminated
-*/
+	   */
 }
+
 
 
