@@ -20,6 +20,6 @@ float drone::getPWMPercent(int min, int max, int pin) {
 
 	int onepercent = range / 100;
 
-	return (drone::getPWM - 1100) / 9;
+	return (drone::getPWM(pin) - 1100) / 9;
 
 }

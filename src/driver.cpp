@@ -1,3 +1,4 @@
+
 #include <string>
 #include <pigpio.h>
 #include "bitbang.h"
@@ -29,7 +30,7 @@ std::list<int> motors = {MOTOR_1, MOTOR_2, MOTOR_3, MOTOR_4};
 
 float pitchOffset,rollOffset;
 
-boolean dryrun = false;
+bool dryrun = false;
 
 
 float getRoll(RTIMU *imu) {
@@ -81,6 +82,8 @@ void setOffsets(RTIMU* imu) {
 
 RTIMU* setup() {
 
+
+
 	RTIMUSettings *settings = new RTIMUSettings("RTIMULib");
 
 	imu = RTIMU::createIMU(settings);
@@ -99,6 +102,8 @@ RTIMU* setup() {
 	imu->setAccelEnable(true);
 
 	gpioInitialise();
+        for(int motor : motors)
+                gpioSetMode(motor, PI_OUTPUT);
 
 	return imu;
 }
@@ -159,7 +164,7 @@ void loopStable(RTIMU *imu) {
 	} else {
 	system("clear");
 	for(int motor : motors)
-		std::cout << drone::getPWMPercent(1100, 2000, motor)
+		std::cout << drone::getPWMPercent(1100, 2000, motor);
 }
 	usleep(imu->IMUGetPollInterval() * 1000);
 

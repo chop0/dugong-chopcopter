@@ -18,7 +18,7 @@ $(EXEC): $(OBJECTS)
 	$(CXX) -c $(CXX_FLAGS) $< -o $@
 
 bin/libRTIMULib.so.7:
-	        cd src/RTIMULib/RTIMULib;       mkdir -p build; cd build; rm -rf *;       cmake ..;	make clean;	make;
+	        cd src/RTIMULib/RTIMULib;       mkdir -p build; cd build;       cmake ..;	make;
 		cp src/RTIMULib/RTIMULib/build/libRTIMULib.so.7.2.1 bin/libRTIMULib.so.7
 
 bin/libpigpio.so:
