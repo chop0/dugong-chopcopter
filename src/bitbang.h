@@ -7,5 +7,6 @@ namespace drone {
      void appendPWM(int pin, int width);
      void sendPWM(int pin, int width); // Function assumes that expected frequency is 50 Hertz.
      float getPWM(int pin);
+     float drone::getPWMPercent(int min, int max, int pin);
 }
 

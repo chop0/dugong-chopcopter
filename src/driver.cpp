@@ -11,7 +11,7 @@
 #include <cmath>
 #include <chrono>
 #include <thread>
-
+#include <cstdlib>
 
 using namespace std::this_thread;
 using namespace std::chrono;
@@ -28,6 +28,8 @@ std::list<int> motors = {MOTOR_1, MOTOR_2, MOTOR_3, MOTOR_4};
 		( std::ostringstream() << std::dec << x ) ).str()
 
 float pitchOffset,rollOffset;
+
+boolean dryrun = false;
 
 
 float getRoll(RTIMU *imu) {
@@ -138,6 +140,7 @@ float pitchCorrectionWidth(RTIMU *imu) {
 
 void loopStable(RTIMU *imu) {
 	/* Stabalize roll */
+	if(!dryrun) {
 	if(std::abs(getRoll(imu)) >= std::abs(8/getRightwardVelocity(imu))) {
 		while(std::abs(getRoll(imu)) >= rollCorrectionAngle(imu)) {
 			drone::sendPWM ( MOTOR_1, drone::getPWM(MOTOR_1) - rollCorrectionWidth(imu));
@@ -153,6 +156,11 @@ void loopStable(RTIMU *imu) {
 			sleep_for(seconds(1));
 		}
 	}
+	} else {
+	system("clear");
+	for(int motor : motors)
+		std::cout << drone::getPWMPercent(1100, 2000, motor)
+}
 	usleep(imu->IMUGetPollInterval() * 1000);
 
 
@@ -164,8 +172,11 @@ void loopStable(RTIMU *imu) {
 
 int main ( ) {
 	RTIMU* imu = setup();
+	dryrun = true;
 
-	while (true) {}
+	while (true) {
+	loopStable(imu);
+	}
 }
 
 

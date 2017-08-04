@@ -14,3 +14,12 @@ void drone::sendPWM ( int pin, int width ) { // Function assumes that expected f
 float drone::getPWM(int pin) {
 	return gpioGetServoPulsewidth(pin);
 }
+
+float drone::getPWMPercent(int min, int max, int pin) {
+	int range = max - min;
+
+	int onepercent = range / 100;
+
+	return (drone::getPWM - 1100) / 9;
+
+}
