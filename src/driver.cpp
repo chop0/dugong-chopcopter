@@ -171,10 +171,10 @@ void loopStable(RTIMU *imu) {
 	}    
 	else {
 		system("clear");
-		std::cout << "Motor 1: " << pwmToPercent(1100, 2000, pwm1) << std::endl;
-		std::cout << "Motor 2: " << pwmToPercent(1100, 2000, pwm2) << std::endl;
-                std::cout << "Motor 3: " << pwmToPercent(1100, 2000, pwm3) << std::endl;
-                std::cout << "Motor 4: " << pwmToPercent(1100, 2000, pwm4) << std::endl;
+		std::cout << "Motor 1: " << drone::pwmToPercent(1100, 2000, pwm1) << std::endl;
+		std::cout << "Motor 2: " << drone::pwmToPercent(1100, 2000, pwm2) << std::endl;
+                std::cout << "Motor 3: " << drone::pwmToPercent(1100, 2000, pwm3) << std::endl;
+                std::cout << "Motor 4: " << drone::pwmToPercent(1100, 2000, pwm4) << std::endl;
 
 
 
