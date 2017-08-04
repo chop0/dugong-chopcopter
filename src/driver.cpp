@@ -102,8 +102,8 @@ RTIMU* setup() {
 	imu->setAccelEnable(true);
 
 	gpioInitialise();
-        for(int motor : motors)
-                gpioSetMode(motor, PI_OUTPUT);
+	for(int motor : motors)
+		gpioSetMode(motor, PI_OUTPUT);
 
 	return imu;
 }
@@ -144,28 +144,47 @@ float pitchCorrectionWidth(RTIMU *imu) {
 
 
 void loopStable(RTIMU *imu) {
-	/* Stabalize roll */
-	if(!dryrun) {
+	int pwm1,pwm2,pwm3,pwm4;
+
 	if(std::abs(getRoll(imu)) >= std::abs(8/getRightwardVelocity(imu))) {
 		while(std::abs(getRoll(imu)) >= rollCorrectionAngle(imu)) {
-			drone::sendPWM ( MOTOR_1, drone::getPWM(MOTOR_1) - rollCorrectionWidth(imu));
-			drone::sendPWM ( MOTOR_4, drone::getPWM(MOTOR_4) - rollCorrectionWidth(imu));
+			pwm1 = pwm1 - rollCorrectionWidth(imu);
+			pwm4 = pwm4 - rollCorrectionWidth(imu);
+			sleep_for(seconds(1));
+		}
+	}
+	if(std::abs(getPitch(imu)) >= std::abs(8/getForwardVelocity(imu))) {
+		while(std::abs(getPitch(imu)) >= pitchCorrectionAngle(imu)) {
+			pwm1 = pwm1 - pitchCorrectionWidth(imu);
+			pwm3 = pwm3 - pitchCorrectionWidth(imu);
 			sleep_for(seconds(1));
 		}
 	}
 
-	if(std::abs(getPitch(imu)) >= std::abs(8/getForwardVelocity(imu))) {
-		while(std::abs(getPitch(imu)) >= pitchCorrectionAngle(imu)) {
-			drone::sendPWM ( MOTOR_1, drone::getPWM( MOTOR_1 ) - pitchCorrectionWidth(imu));
-			drone::sendPWM ( MOTOR_3, drone::getPWM( MOTOR_3 ) - pitchCorrectionWidth(imu));
-			sleep_for(seconds(1));
-		}
+
+	if(!dryrun) { 
+		drone::sendPWM(MOTOR_1, pwm1);
+		drone::sendPWM(MOTOR_2, pwm2);
+		drone::sendPWM(MOTOR_3, pwm3);
+		drone::sendPWM(MOTOR_4, pwm4);
+
+	}    
+	else {
+		system("clear");
+		std::cout << "Motor 1: " << pwm1 << std::endl;
+		std::cout << "Motor 2: " << pwm2 << std::endl;
+		std::cout << "Motor 3: " << pwm3 << std::endl;
+		std::cout << "Motor 4: " << pwm4 << std::endl;
+
+
+
+
 	}
-	} else {
-	system("clear");
-	for(int motor : motors)
-		std::cout << drone::getPWMPercent(1100, 2000, motor);
-}
+
+
+
+
+
 	usleep(imu->IMUGetPollInterval() * 1000);
 
 
@@ -180,7 +199,7 @@ int main ( ) {
 	dryrun = true;
 
 	while (true) {
-	loopStable(imu);
+		loopStable(imu);
 	}
 }
 
