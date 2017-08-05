@@ -24,7 +24,7 @@ float drone::getPWMPercent(int min, int max, int pin) {
 
 }
 
-     float pwmToPercent(int min, int max, int width) {
+ float drone::pwmToPercent(int min, int max, int width) {
 	return (width - 1100) / ((max - min) / 100);
 }
 
