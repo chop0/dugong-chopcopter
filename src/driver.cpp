@@ -197,7 +197,7 @@ int main ( ) {
 	RTIMU* imu = setup();
 	dryrun = true;
 
-	while (true) {
+	while (imu->IMURead()) {
 		loopStable(imu);
 	}
 }
