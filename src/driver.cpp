@@ -48,7 +48,7 @@ float getPitch(RTIMU *imu) {
 
 float getRightwardVelocity(RTIMU *imu) {
 
-	return imu->getAccelResiduals().accel.x();
+	return imu->getAccelResiduals().x();
 }
 
 float getForwardVelocity  (RTIMU *imu) {
