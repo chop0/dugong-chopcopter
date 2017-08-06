@@ -177,8 +177,9 @@ void loopStable(RTIMU *imu) {
 		std::cout << "Motor 2: " << pwm2 << std::endl;
 		std::cout << "Motor 3: " << pwm3 << std::endl;
 		std::cout << "Motor 4: " << pwm4 << std::endl;
-		std::cout << std::abs(getRoll(imu)) << std::endl;
-		std::cout <<  std::abs(getRightwardVelocity(imu) + 0.3) << std::endl;
+		std::cout << "Roll: " << std::abs(getRoll(imu)) << std::endl;
+		std::cout <<  "Rightward velocity + 0.3: " << std::abs(getRightwardVelocity(imu) + 0.3) << std::endl;
+		std::cout << "Roll correction width: " << rollCorrectionWidth(imu);
 
 
 
@@ -204,7 +205,9 @@ int main ( ) {
 
 	while (imu->IMURead()) {
 		loopStable(imu);
-		usleep(imu->IMUGetPollInterval() * 5000);
+		if(dryrun) {
+			usleep(imu->IMUGetPollInterval() * 5000);
+		}
 	}
 }
 
