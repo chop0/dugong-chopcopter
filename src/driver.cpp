@@ -153,14 +153,14 @@ void loopStable(RTIMU *imu) {
 		while(std::abs(getRoll(imu)) >= rollCorrectionAngle(imu)) {
 			pwm1 = pwm1 - rollCorrectionWidth(imu);
 			pwm4 = pwm4 - rollCorrectionWidth(imu);
-			sleep_for(seconds(1));
+			sleep_for(seconds(0.1));
 		}
 	}
 	if(std::abs(getPitch(imu)) >= std::abs(getForwardVelocity(imu)) + 0.3) {
 		while(std::abs(getPitch(imu)) >= pitchCorrectionAngle(imu)) {
 			pwm1 = pwm1 - pitchCorrectionWidth(imu);
 			pwm3 = pwm3 - pitchCorrectionWidth(imu);
-			sleep_for(seconds(1));
+			sleep_for(seconds(0.1));
 		}
 	}
 
