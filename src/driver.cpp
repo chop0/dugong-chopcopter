@@ -141,10 +141,10 @@ float pitchCorrectionWidth(RTIMU *imu) {
 }
 
 
-        int pwm1 = 1100;
-        int pwm2 = 1100;
-        int pwm3 = 1100;
-        int pwm4 = 1100;
+int pwm1 = 1100;
+int pwm2 = 1100;
+int pwm3 = 1100;
+int pwm4 = 1100;
 
 
 void loopStable(RTIMU *imu) {
@@ -176,9 +176,10 @@ void loopStable(RTIMU *imu) {
 		system("clear");
 		std::cout << "Motor 1: " << pwm1 << std::endl;
 		std::cout << "Motor 2: " << pwm2 << std::endl;
-                std::cout << "Motor 3: " << pwm3 << std::endl;
-                std::cout << "Motor 4: " << pwm4 << std::endl;
-
+		std::cout << "Motor 3: " << pwm3 << std::endl;
+		std::cout << "Motor 4: " << pwm4 << std::endl;
+		std::cout << std::abs(getRoll(imu)) << std::endl;
+		std::cout <<  std::abs(8/getRightwardVelocity(imu)) << std::endl;
 
 
 
