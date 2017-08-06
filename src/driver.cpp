@@ -140,12 +140,11 @@ float pitchCorrectionWidth(RTIMU *imu) {
 	return (percentReductionPerSecond * onepercent);
 }
 
-        int pwm1,pwm2,pwm3,pwm4;
 
-        pwm1 = 0;
-        pwm2 = 0;
-        pwm3 = 0;
-        pwm4 = 0;
+        int pwm1 = 0;
+        int pwm2 = 0;
+        int pwm3 = 0;
+        int pwm4 = 0;
 
 
 void loopStable(RTIMU *imu) {
