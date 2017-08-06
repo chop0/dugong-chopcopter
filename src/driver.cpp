@@ -179,7 +179,7 @@ void loopStable(RTIMU *imu) {
 		std::cout << "Motor 4: " << pwm4 << std::endl;
 		std::cout << "Roll: " << std::abs(getRoll(imu)) << std::endl;
 		std::cout <<  "Rightward velocity + 0.3: " << std::abs(getRightwardVelocity(imu) + 0.3) << std::endl;
-		std::cout << "Roll correction width: " << rollCorrectionWidth(imu);
+		std::cout << "Roll correction width: " << rollCorrectionWidth(imu) << std::endl;
 
 
 
