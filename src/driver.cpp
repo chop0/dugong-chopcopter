@@ -193,19 +193,50 @@ void loopStable(RTIMU *imu) {
 
 }
 
+void loopManual() {
+ 
+ 	std::string line;
+ 
+ 	std::getline(std::cin, line); // Blocks until something interesting comes into stdin.
+ 
+ 
+ 	//switch(getch()) { // Using newer, less obsolete method which doesn't require system calls now
+ 	if(line[0] > -1) {
+ 
+ 		switch(line[0]) {
+ 			case '1':
+ 				std::getline(std::cin, line);
+ 				drone::sendPWM ( MOTOR_1, std::stoi(line) );
+ 				break;
+ 			case '2':
+ 				std::getline(std::cin, line);
+ 				drone::sendPWM ( MOTOR_2, std::stoi(line) );
+ 				break;
+ 			case '3':
+ 				std::getline(std::cin, line );
+ 				drone::sendPWM ( MOTOR_3, std::stoi(line) );
+ 				break;
+ 			case '4':
+ 				std::getline(std::cin, line);
+ 				drone::sendPWM ( MOTOR_4, std::stoi(line) );
+ 				break;
+ 			default:
+ 				if(line == "leftright") {
+ 					std::getline(std::cin, line);
+ 					drone::appendPWM(MOTOR_2, std::stoi(line));
+ 					drone::appendPWM(MOTOR_3, std::stoi(line));
+ 				}
+ 				break;
+ 		}
+ 	
+  }
 
 
 
 
 int main ( ) {
-	RTIMU* imu = setup();
-	dryrun = true;
-
-	while (imu->IMURead()) {
-		loopStable(imu);
-		if(dryrun) {
-			usleep(imu->IMUGetPollInterval() * 5000);
-		}
+	while(true) {
+		loopManual();
 	}
 }
 
