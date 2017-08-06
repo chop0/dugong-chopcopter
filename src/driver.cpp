@@ -149,14 +149,14 @@ int pwm4 = 1100;
 
 void loopStable(RTIMU *imu) {
 
-	if(std::abs(getRoll(imu) + 0.3) >= std::abs(getRightwardVelocity(imu))) {
+	if(std::abs(getRoll(imu)) >= std::abs(getRightwardVelocity(imu)) + 0.3) {
 		while(std::abs(getRoll(imu)) >= rollCorrectionAngle(imu)) {
 			pwm1 = pwm1 - rollCorrectionWidth(imu);
 			pwm4 = pwm4 - rollCorrectionWidth(imu);
 			sleep_for(seconds(1));
 		}
 	}
-	if(std::abs(getPitch(imu) + 0.3) >= std::abs(getForwardVelocity(imu))) {
+	if(std::abs(getPitch(imu)) >= std::abs(getForwardVelocity(imu)) + 0.3) {
 		while(std::abs(getPitch(imu)) >= pitchCorrectionAngle(imu)) {
 			pwm1 = pwm1 - pitchCorrectionWidth(imu);
 			pwm3 = pwm3 - pitchCorrectionWidth(imu);
@@ -179,7 +179,7 @@ void loopStable(RTIMU *imu) {
 		std::cout << "Motor 3: " << pwm3 << std::endl;
 		std::cout << "Motor 4: " << pwm4 << std::endl;
 		std::cout << std::abs(getRoll(imu)) << std::endl;
-		std::cout <<  std::abs(getRightwardVelocity(imu)) << std::endl;
+		std::cout <<  std::abs(getRightwardVelocity(imu) + 0.3) << std::endl;
 
 
 
