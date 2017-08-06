@@ -173,7 +173,7 @@ void loopStable(RTIMU *imu) {
 
 	}    
 	else {
-		system("clear");
+		
 		std::cout << "Motor 1: " << pwm1 << std::endl;
 		std::cout << "Motor 2: " << pwm2 << std::endl;
 		std::cout << "Motor 3: " << pwm3 << std::endl;
