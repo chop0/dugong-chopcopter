@@ -140,15 +140,15 @@ float pitchCorrectionWidth(RTIMU *imu) {
 	return (percentReductionPerSecond * onepercent);
 }
 
+        int pwm1,pwm2,pwm3,pwm4;
 
-void loopStable(RTIMU *imu) {
-	int pwm1,pwm2,pwm3,pwm4;
-
-	pwm1 = 0;
+        pwm1 = 0;
         pwm2 = 0;
         pwm3 = 0;
         pwm4 = 0;
 
+
+void loopStable(RTIMU *imu) {
 
 	if(std::abs(getRoll(imu)) >= std::abs(8/getRightwardVelocity(imu))) {
 		while(std::abs(getRoll(imu)) >= rollCorrectionAngle(imu)) {
